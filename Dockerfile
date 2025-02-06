@@ -1,7 +1,16 @@
 FROM ubuntu
-RUN apt update
-RUN apt install apache2 -y
-RUN sudo systemctl start apache2
-RUN sudo systemctl enable apache2
-ADD . /var/www/html/
-ENTRYPOINT apachectl -D FOREGROUND
+
+# Update package lists and install Apache
+RUN apt update && apt install -y apache2
+
+# Ensure Apache runs in the foreground
+RUN systemctl enable apache2
+
+# Copy website files (including index.html) to Apache root directory
+COPY . /var/www/html/
+
+# Expose port 80 for Apache
+EXPOSE 80
+
+# Start Apache in the foreground
+ENTRYPOINT ["apachectl", "-D", "FOREGROUND"]
