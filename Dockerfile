@@ -4,4 +4,4 @@ RUN apt install apache2 -y
 RUN sudo systemctl start apache2
 RUN sudo systemctl enable apache2
 ADD . /var/www/html/
-ENTRYPOINT apachect1 -D FOREGROUND
+ENTRYPOINT apachectl -D FOREGROUND
